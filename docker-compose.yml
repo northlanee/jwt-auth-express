@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  node-app:
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./src:/app/src
+      - ./.env:/app/.env
+    networks:
+      - server
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - "27017:27017"
+    networks:
+      - server
+networks:
+  server:
